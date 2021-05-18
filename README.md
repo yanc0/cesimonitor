@@ -1,25 +1,3 @@
-global:
-  scrape_interval: 5s
-
-scrape_configs:
-- job_name: 'docker-hub'
-  static_configs:
-    - targets: ['localhost:9170']
-- job_name: 'node-exporter'
-  static_configs:
-    - targets: ['localhost:9100']
-
-
-docker run --net="host" -d -v $PWD/prometheus.yml:/etc/prometheus/prometheus.yml  prom/prometheus:latest
-docker run --net="host" -d -v "/:/host:ro,rslave" --pid="host" quay.io/prometheus/node-exporter:latest --web.listen-address=":9100" --path.rootfs=/host
-docker run --net="host" -d infinityworks/docker-hub-exporter:latest -listen-address=:9170 -images="yanc0/cesisocial"
-
-
-http://localhost:9100/metrics
-http://localhost:9170/metrics
-http://localhost:9090/graph
-
-
 # Monitoring
 
 ## Node exporter
